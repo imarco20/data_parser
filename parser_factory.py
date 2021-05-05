@@ -1,5 +1,4 @@
-from csv_parser_strategy import CsvParserStrategy
-from xml_parser_strategy import XmlParserStrategy
+from data_parser import CsvParserStrategy, XmlParserStrategy
 
 
 class ParserFactory:
