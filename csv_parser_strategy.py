@@ -13,6 +13,9 @@ class CsvParserStrategy(ParserStrategy):
                 for line in csv.DictReader(data):
                     rows.append(line)
 
-            result["customers"] = rows
+            if "customer" in file.split("/")[-1].lower():
+                result["customers"] = rows
+            else:
+                result["vehicles"] = rows
 
         return result
