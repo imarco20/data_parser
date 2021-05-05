@@ -37,8 +37,11 @@ class XmlParserStrategy(ParserStrategy):
     def parse(self, file):
         result = {}
 
-        root = ElementTree.parse(file).getroot()
-        result[root.tag] = self.parse_node(root)
+        try:
+            root = ElementTree.parse(file).getroot()
+            result[root.tag] = self.parse_node(root)
+        except ElementTree.ParseError:
+            print("The entered file isn't a valid XML one. Please check the source of your file")
 
         return result
 
