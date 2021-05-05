@@ -1,6 +1,12 @@
 import json
+from abc import ABC, abstractmethod
 
-from json_converter_strategy import JsonConverterStrategy
+
+class JsonConverterStrategy(ABC):
+
+    @abstractmethod
+    def convert(self, data):
+        pass
 
 
 class CsvJsonConverterStrategy(JsonConverterStrategy):
@@ -21,3 +27,9 @@ class CsvJsonConverterStrategy(JsonConverterStrategy):
                     customer["vehicles"].append(vehicle)
 
         return json.dumps(customers)
+
+
+class XmlJsonConverterStrategy(JsonConverterStrategy):
+
+    def convert(self, data):
+        return json.dumps(data[0])

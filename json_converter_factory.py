@@ -1,5 +1,4 @@
-from csv_json_converter_strategy import CsvJsonConverterStrategy
-from xml_json_converter import XmlJsonConverterStrategy
+from json_converter import XmlJsonConverterStrategy, CsvJsonConverterStrategy
 
 
 class JsonConverterFactory:
