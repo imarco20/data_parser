@@ -17,14 +17,17 @@ class CsvParserStrategy(ParserStrategy):
         result = {}
         rows = []
         if os.path.exists(file):
-            with open(file, "r") as data:
-                for line in csv.DictReader(data):
-                    rows.append(line)
+            try:
+                with open(file, "r") as data:
+                    for line in csv.DictReader(data):
+                        rows.append(line)
 
-            if "customer" in file.split("/")[-1].lower():
-                result["customers"] = rows
-            else:
-                result["vehicles"] = rows
+                if "customer" in file.split("/")[-1].lower():
+                    result["customers"] = rows
+                else:
+                    result["vehicles"] = rows
+            except UnicodeDecodeError:
+                print("The entered file isn't a proper CSV file. Please its source.")
 
         return result
 
