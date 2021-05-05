@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+from collections import defaultdict
 
 
 class JsonConverterStrategy(ABC):
@@ -20,11 +21,13 @@ class CsvJsonConverterStrategy(JsonConverterStrategy):
             vehicles = data[0]["vehicles"]
             customers = data[1]["customers"]
 
+        vehicles_dict = defaultdict(list)
+
+        for vehicle in vehicles:
+            vehicles_dict[vehicle["owner_id"]].append(vehicle)
+
         for customer in customers:
-            for vehicle in vehicles:
-                if customer["id"] == vehicle["owner_id"]:
-                    customer["vehicles"] = customer.get("vehicles", [])
-                    customer["vehicles"].append(vehicle)
+            customer["vehicles"] = vehicles_dict.get(customer["id"])
 
         return json.dumps(customers)
 
